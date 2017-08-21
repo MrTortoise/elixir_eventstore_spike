@@ -1,21 +1,24 @@
 # ElixirEventstore
 
-**TODO: Add description**
+**Tech spike to play with extreme - an eventstore adapter for elixir**
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `elixir_eventstore` to your list of dependencies in `mix.exs`:
+`mix deps.get`
+`iex -S mix`
 
 ```elixir
-def deps do
-  [
-    {:elixir_eventstore, "~> 0.1.0"}
-  ]
-end
+iex(1)> {:ok, server} = Application.get_env(:extreme, :event_store) |> Extreme.start_link
+
+21:58:52.151 [info]  Connecting Extreme to localhost:1113
+{:ok, #PID<0.208.0>}
+iex(2)>
+21:58:52.152 [info]  Successfully connected to EventStore @ localhost:1113
+iex(2)> {:ok, response} = Extreme.execute server, ElixirEventstore.Write.write_events    
+{:ok,
+ %Extreme.Msg.WriteEventsCompleted{commit_position: 2425127,
+  first_event_number: 0, last_event_number: 1, message: nil,
+  prepare_position: 2425127, result: :Success}}
+iex(3)>
+
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/elixir_eventstore](https://hexdocs.pm/elixir_eventstore).
-
