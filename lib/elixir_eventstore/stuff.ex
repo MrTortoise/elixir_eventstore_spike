@@ -1,12 +1,12 @@
 defmodule ElixirEventstore.PersonCreated do
-  defstruct name: "undefined"
+  defstruct name: "undefined", id: UUID.uuid1()
 end
 
 defmodule ElixirEventstore.PersonChangedName do
-  defstruct name: "undefined"
+  defstruct name: "undefined", id: UUID.uuid1()
 end
 
-defmodule ElixirEventstore.Write do
+defmodule ElixirEventstore.Stuff do
   alias Extreme.Msg, as: ExMsg
   alias ElixirEventstore.PersonCreated, as: PersonCreated
   alias ElixirEventstore.PersonChangedName, as: PersonChangedName
@@ -18,7 +18,7 @@ defmodule ElixirEventstore.Write do
         event_type: to_string(event.__struct__),
         data_content_type: 0,
         metadata_content_type: 0,
-        data: :erlang.term_to_binary(event),
+        data: Poison.encode!(event),
         metadata: ""
       ) end)
     ExMsg.WriteEvents.new(

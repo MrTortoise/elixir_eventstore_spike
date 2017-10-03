@@ -37,3 +37,5 @@ config :extreme, :event_store,
   password: "changeit",
   reconnect_delay: 2_000,
   max_attempts: :infinity
+
+  :ok = System.put_env("EXTREME_ES_VERSION", "4")
