@@ -3,7 +3,7 @@ defmodule ElixirEventstore.PersonCreated do
 end
 
 defmodule ElixirEventstore.PersonChangedName do
-  defstruct name: "undefined", id: UUID.uuid1()
+  defstruct name: "undefined", id: UUID.uuid1()  
 end
 
 defmodule ElixirEventstore.Stuff do

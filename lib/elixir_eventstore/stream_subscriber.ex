@@ -13,14 +13,14 @@ end
 
 def handle_cast(:subscribe, state) do
   # read only unprocessed events and stay subscribed
-  {:ok, subscription} = Extreme.read_and_stay_subscribed state.event_store, self, state.stream, state.last_event + 1
+  {:ok, subscription} = Extreme.read_and_stay_subscribed state.event_store, self(), state.stream, state.last_event + 1
   # we want to monitor when subscription is crashed so we can resubscribe
   ref = Process.monitor subscription
   {:noreply, Map.put(state, :subscription_ref, ref)}
 end
 
 def handle_info({:DOWN, ref, :process, _pid, _reason}, %{subscription_ref: ref} = state) do
-  GenServer.cast self, :subscribe
+  GenServer.cast self(), :subscribe
   {:noreply, state}
 end
 def handle_info({:on_event, push}, state) do

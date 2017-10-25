@@ -29,7 +29,7 @@ use Mix.Config
 #
 #     import_config "#{Mix.env}.exs"
 
-config :extreme, :event_store,
+config :elixir_eventstore, :event_store,
   db_type: :node,
   host: "localhost",
   port: 1113,
